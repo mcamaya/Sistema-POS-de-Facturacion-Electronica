@@ -23,8 +23,8 @@ class Server {
         })
     }
 
-    routes(){
-
+    routes(roles){
+        this.app.use(...roles);
     }
 }
 
