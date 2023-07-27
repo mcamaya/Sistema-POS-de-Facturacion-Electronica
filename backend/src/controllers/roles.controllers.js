@@ -1,26 +1,24 @@
-import Rol from "../models/Rol.js"
+import rolesDB from "../services/roles.services.js";
 
-const getRoles = async (req, res) => {
-    const roles = await Rol.find();
-    res.json(roles);
+const getAllRoles = async (req, res) => {
+    const allRoles = await rolesDB.getRoles();
+    res.json(allRoles);
 }
 
 const getOneRol = async (req, res) => {
     try {
-        const {id} = req.params.id;
-        const rol = await Rol.findOne({id});
-        res.json(rol);
+        const oneRol = await rolesDB.getOneRol({_id:req.params.id});
+        res.json(oneRol);
     } catch (err) {
         res.status(400).send(err.message);
     }
 }
 
-const postRoles = async(req, res) => {
+const postNewRol = async(req, res) => {
     try {
         const {rol} = req.body;
-        const nuevoRol = new Rol({rol});
-        nuevoRol.save()
-        res.json(nuevoRol)
+        rolesDB.postRoles({rol});
+        res.json({status: "OK", data: {rol}});
     } catch (err) {
         res.status(400).send(err.message);
     }
@@ -28,13 +26,13 @@ const postRoles = async(req, res) => {
 
 const deleteRoles = async (req, res) => {
     const {id} = req.params.id;
-    const eliminado = await Rol.deleteOne({id});
-    res.json(eliminado)
+    rolesDB.deleteRol(id);
+    res.json({status: 'OK', data: `Dato eliminado con éxito`});
 }
 
-export {
-    getRoles,
+export default {
+    getAllRoles,
     getOneRol,
-    postRoles,
+    postNewRol,
     deleteRoles
 }

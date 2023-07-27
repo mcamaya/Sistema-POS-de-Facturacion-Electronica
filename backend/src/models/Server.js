@@ -1,12 +1,15 @@
 import express from "express";
 import { connectDatabase } from "../database/config.js";
+import allRoutes from "../routes/index.js";
 
 class Server {
     constructor(){
         this.port = process.env.PORT;
         this.app = express();
+        this.routesV1 = '/api/v1';
         this.middlewares();
         this.connectDatabase();
+        this.routes();
     }
 
     middlewares(){
@@ -23,8 +26,8 @@ class Server {
         })
     }
 
-    routes(roles){
-        this.app.use(...roles);
+    routes(){
+        this.app.use(this.routesV1, allRoutes);
     }
 }
 
