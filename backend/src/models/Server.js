@@ -1,6 +1,7 @@
 import express from "express";
 import { connectDatabase } from "../database/config.js";
 import allRoutes from "../routes/index.js";
+import cors from "cors";
 
 class Server {
     constructor(){
@@ -14,6 +15,7 @@ class Server {
 
     middlewares(){
         this.app.use(express.json());
+        this.app.use(cors());
     }
 
     async connectDatabase(){

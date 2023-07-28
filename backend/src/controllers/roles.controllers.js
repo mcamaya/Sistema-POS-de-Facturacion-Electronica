@@ -4,7 +4,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 const getAllRoles = async (req, res) => {
     try {
         const allRoles = await Rol.find();
-        res.json({status: 'OK', data: allRoles});
+        res.json(allRoles);
     } catch (err) {
         httpErrors(res, err);
     }
@@ -13,7 +13,7 @@ const getAllRoles = async (req, res) => {
 const getOneRol = async (req, res) => {
     try {
         const oneRol = await Rol.findOne({_id:req.params.id});
-        res.json({status: 'OK', data: oneRol});
+        res.json(oneRol);
     } catch (err) {
         httpErrors(res, err);
     }

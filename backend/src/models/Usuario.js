@@ -1,6 +1,10 @@
 import { Schema, model } from "mongoose";
 
 const UsuarioSchema = Schema({
+    _id: {
+        type: String,
+        required: true
+    },
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
@@ -22,7 +26,7 @@ const UsuarioSchema = Schema({
         default: 'USER',
         required: true
     },
-    estado: {
+    activo: {
         type: Boolean,
         default: true
     }

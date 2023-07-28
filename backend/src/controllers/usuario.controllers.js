@@ -1,19 +1,21 @@
 import Usuario from "../models/Usuario.js";
 import { httpErrors } from "../helpers/handleErrors.js";
+import { nanoid } from "nanoid";
 
 const getAllUsuarios = async (req, res) => {
     try {
         const usuarios = await Usuario.find();
-        res.json({status: 'OK', data: usuarios});
+        res.json(usuarios);
     } catch (err) {
-        httpErrors(res, err);
+        res.status(400).send(err.message)
+
     }
 }
 
 const getOneUsuario = async (req, res) => {
     try {
         const oneUsuario = await Usuario.findOne({_id:req.params.id});
-        res.json({status: 'OK', data: oneUsuario});
+        res.json(oneUsuario);
     } catch (err) {
         httpErrors(res, err);
     }
@@ -21,12 +23,13 @@ const getOneUsuario = async (req, res) => {
 
 const postNewUsuario = async (req, res) => {
     try {
+        const _id = nanoid();
         const {nombre, email, password, rol, estado} = req.body;
-        const newUsuario = await new Usuario({nombre, email, password, rol, estado});
+        const newUsuario = await new Usuario({_id, nombre, email, password, rol, estado});
         newUsuario.save();
         res.json({status: 'OK', data: newUsuario})
     } catch (err) {
-        httpErrors(res, err);
+        res.status(400).send(err.message)
     }
 }
 
