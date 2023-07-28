@@ -1,38 +1,61 @@
-import rolesDB from "../services/roles.services.js";
+import Rol from "../models/Rol.js";
+import { httpErrors } from "../helpers/handleErrors.js";
 
 const getAllRoles = async (req, res) => {
-    const allRoles = await rolesDB.getRoles();
-    res.json(allRoles);
+    try {
+        const allRoles = await Rol.find();
+        res.json({status: 'OK', data: allRoles});
+    } catch (err) {
+        httpErrors(res, err);
+    }
 }
 
 const getOneRol = async (req, res) => {
     try {
-        const oneRol = await rolesDB.getOneRol({_id:req.params.id});
-        res.json(oneRol);
+        const oneRol = await Rol.findOne({_id:req.params.id});
+        res.json({status: 'OK', data: oneRol});
     } catch (err) {
-        res.status(400).send(err.message);
+        httpErrors(res, err);
     }
 }
 
 const postNewRol = async(req, res) => {
     try {
         const {rol} = req.body;
-        rolesDB.postRoles({rol});
-        res.json({status: "OK", data: {rol}});
+        const newRol = new Rol({rol});
+        newRol.save();
+        res.json({status: "OK", data: rol});
     } catch (err) {
-        res.status(400).send(err.message);
+        httpErrors(res, err);
     }
 }
 
 const deleteRoles = async (req, res) => {
-    const {id} = req.params.id;
-    rolesDB.deleteRol(id);
-    res.json({status: 'OK', data: `Dato eliminado con éxito`});
+    try {
+        await Rol.deleteOne({_id: req.params.id});
+        res.json({status: 'OK', data: `Dato eliminado con éxito`});
+    } catch (err) {
+        httpErrors(res, err);
+    }
+}
+
+const updateRol = async (req, res) => {
+    try {
+        const updatedRol = await Rol.findOneAndUpdate(
+            {_id:req.params.id},
+            req.body,
+            {new:true}
+        );
+        res.json({status: 'OK', data: updatedRol});
+    } catch (err) {
+        httpErrors(res, err);
+    }
 }
 
 export default {
     getAllRoles,
     getOneRol,
     postNewRol,
-    deleteRoles
+    deleteRoles,
+    updateRol
 }

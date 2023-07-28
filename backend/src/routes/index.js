@@ -16,7 +16,7 @@ fs.readdirSync(__dirname).filter(async (file) => {
     const archivoSinExtension = removerExtension(file);
     const skip = ['index'].includes(archivoSinExtension);
     if(!skip){
-        const {default: defaultRouter} = await import (`./${archivoSinExtension}.routes.js`)
+        const {default: defaultRouter} = await import (`./${archivoSinExtension}.routes.js`);
         router.use(`/${archivoSinExtension}`, defaultRouter);
         console.log('---->', archivoSinExtension);
     }

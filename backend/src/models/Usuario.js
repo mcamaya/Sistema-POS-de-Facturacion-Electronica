@@ -26,6 +26,8 @@ const UsuarioSchema = Schema({
         type: Boolean,
         default: true
     }
+}, {
+    versionKey: false
 });
 
 export default model('usuarios', UsuarioSchema);
