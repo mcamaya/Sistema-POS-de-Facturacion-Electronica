@@ -1,5 +1,5 @@
-import validateDocuments from "./validateDocuments.js";
 import { check } from "express-validator";
+import validateDocuments from "./validateDocuments.js";
 import Usuario from "../models/Usuario.js";
 import Rol from "../models/Rol.js";
 
@@ -14,9 +14,11 @@ const usuarioMiddleware = [
         }
     }),
     check('rol').custom(async (rol = '') => {
-        const existeRol = await Rol.find({rol});
-        if(!existeRol){
-            throw new Error(`El rol '${rol}' no se encuentra registrado en la base de datos.`);
+        if(rol){
+            const existeRol = await Rol.find({rol});
+            if(existeRol == false){
+                throw new Error(`El rol '${rol}' no se encuentra registrado en la base de datos.`);
+            }
         }
     }),
     validateDocuments
