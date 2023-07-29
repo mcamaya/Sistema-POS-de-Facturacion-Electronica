@@ -14,7 +14,7 @@ const usuarioMiddleware = [
         }
     }),
     check('rol').custom(async (rol = '') => {
-        const existeRol = await Rol.findOne({rol});
+        const existeRol = await Rol.find({rol});
         if(!existeRol){
             throw new Error(`El rol '${rol}' no se encuentra registrado en la base de datos.`);
         }

@@ -1,6 +1,7 @@
 import Usuario from "../models/Usuario.js";
 import { httpErrors } from "../helpers/handleErrors.js";
 import { nanoid } from "nanoid";
+import bcryptjs from "bcryptjs";
 
 const getAllUsuarios = async (req, res) => {
     try {
@@ -24,12 +25,17 @@ const getOneUsuario = async (req, res) => {
 const postNewUsuario = async (req, res) => {
     try {
         const _id = nanoid();
-        const {nombre, email, password, rol, estado} = req.body;
-        const newUsuario = await new Usuario({_id, nombre, email, password, rol, estado});
+        const {nombre, email, password, rol} = req.body;
+        const newUsuario = await new Usuario({_id, nombre, email, password, rol});
+
+        // password hash
+        const salt = bcryptjs.genSaltSync();
+        newUsuario.password = bcryptjs.hashSync(password, salt);
+
         newUsuario.save();
-        res.json({status: 'OK', data: newUsuario})
+        res.json({status: 'OK', data: newUsuario});
     } catch (err) {
-        res.status(400).send(err.message)
+        httpErrors(res, err);
     }
 }
 
