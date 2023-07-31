@@ -1,4 +1,4 @@
-import usuariosController from "../controllers/usuario.controllers.js";
+import * as usuariosController from "../controllers/usuario.controllers.js";
 import { Router } from "express";
 import userValidation from "../middlewares/usuarios.validation.js";
 

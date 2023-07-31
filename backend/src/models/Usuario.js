@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import bcryptjs from "bcryptjs";
 
 const UsuarioSchema = Schema({
     _id: {
@@ -30,7 +31,17 @@ const UsuarioSchema = Schema({
         default: true
     }
 }, {
-    versionKey: false
+    versionKey: false,
+    timestamps: true
 });
+
+UsuarioSchema.statics.encryptPassword = (password) => {
+    const salt = bcryptjs.genSaltSync(10);
+    return bcryptjs.hashSync(password, salt);
+}
+
+UsuarioSchema.statics.comparePassword = (password, receivedPassword) => {
+    return bcryptjs.compareSync(password, receivedPassword)
+}
 
 export default model('usuarios', UsuarioSchema);

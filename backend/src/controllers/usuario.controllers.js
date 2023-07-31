@@ -1,9 +1,8 @@
 import Usuario from "../models/Usuario.js";
 import { httpErrors } from "../helpers/handleErrors.js";
 import { nanoid } from "nanoid";
-import bcryptjs from "bcryptjs";
 
-const getAllUsuarios = async (req, res) => {
+export const getAllUsuarios = async (req, res) => {
     try {
         const usuarios = await Usuario.find();
         res.json(usuarios);
@@ -13,7 +12,7 @@ const getAllUsuarios = async (req, res) => {
     }
 }
 
-const getOneUsuario = async (req, res) => {
+export const getOneUsuario = async (req, res) => {
     try {
         const oneUsuario = await Usuario.findOne({_id:req.params.id});
         res.json(oneUsuario);
@@ -22,15 +21,19 @@ const getOneUsuario = async (req, res) => {
     }
 }
 
-const postNewUsuario = async (req, res) => {
+export const postNewUsuario = async (req, res) => {
     try {
         const _id = nanoid();
         const {nombre, email, password, rol} = req.body;
-        const newUsuario = await new Usuario({_id, nombre, email, password, rol});
-
-        // password hash
-        const salt = bcryptjs.genSaltSync();
-        newUsuario.password = bcryptjs.hashSync(password, salt);
+        const newUsuario = await new Usuario(
+            {
+                _id, 
+                nombre, 
+                email, 
+                password: Usuario.encryptPassword(password), 
+                rol
+            }
+        );
 
         newUsuario.save();
         res.json({status: 'OK', data: newUsuario});
@@ -39,7 +42,7 @@ const postNewUsuario = async (req, res) => {
     }
 }
 
-const deleteUsuario = async (req, res) => {
+export const deleteUsuario = async (req, res) => {
     try {
         await Usuario.deleteOne({_id:req.params.id});
         res.json({status: 'OK', msg:'Dato eliminado con éxito'});
@@ -48,7 +51,7 @@ const deleteUsuario = async (req, res) => {
     }
 }
 
-const updateUsuario = async (req, res) => {
+export const updateUsuario = async (req, res) => {
     try {
         const updatedUsuario = await Usuario.findOneAndUpdate(
             {_id:req.params.id},
@@ -59,12 +62,4 @@ const updateUsuario = async (req, res) => {
     } catch (err) {
         httpErrors(res, err);
     }
-}
-
-export default {
-    getAllUsuarios,
-    getOneUsuario,
-    postNewUsuario,
-    deleteUsuario,
-    updateUsuario
 }
