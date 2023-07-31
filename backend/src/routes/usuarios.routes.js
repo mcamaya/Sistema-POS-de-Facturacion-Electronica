@@ -1,6 +1,7 @@
 import * as usuariosController from "../controllers/usuario.controllers.js";
 import { Router } from "express";
 import userValidation from "../middlewares/usuarios.validation.js";
+import verifyToken from "../middlewares/verifyToken.js";
 
 const router = Router();
 

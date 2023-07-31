@@ -1,6 +1,7 @@
 import Usuario from "../models/Usuario.js";
 import { httpErrors } from "../helpers/handleErrors.js";
 import { nanoid } from "nanoid";
+import jwt from "jsonwebtoken";
 
 export const getAllUsuarios = async (req, res) => {
     try {
@@ -35,8 +36,10 @@ export const postNewUsuario = async (req, res) => {
             }
         );
 
-        newUsuario.save();
-        res.json({status: 'OK', data: newUsuario});
+        const token = jwt.sign({id: newUsuario._id}, process.env.PRIVATE_KEY, {expiresIn: 3600});
+
+        const savedUser = await newUsuario.save();
+        res.status(200).json({status: 'OK', data: savedUser, token});
     } catch (err) {
         httpErrors(res, err);
     }
