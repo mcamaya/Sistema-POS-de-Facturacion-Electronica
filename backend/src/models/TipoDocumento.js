@@ -4,8 +4,8 @@ import { nanoid } from "nanoid";
 const TipoDocumentoSchema = new Schema ({
     _id: {
         type: String,
-        default: nanoid(),
-        required: [true, 'Nanoid is failing']
+        required: [true, 'Nanoid failed from model'],
+        default: nanoid()
     },
     tipoDoc: {
         type: String,

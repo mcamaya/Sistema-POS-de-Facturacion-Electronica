@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 const UsuarioSchema = Schema({
     _id: {
         type: String,
-        required: true,
+        required: [true, 'Nanoid failed from model'],
         default: nanoid()
     },
     nombre: {
