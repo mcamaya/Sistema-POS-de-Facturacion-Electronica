@@ -1,10 +1,12 @@
 import { Schema, model } from "mongoose";
 import bcryptjs from "bcryptjs";
+import { nanoid } from "nanoid";
 
 const UsuarioSchema = Schema({
     _id: {
         type: String,
-        required: true
+        required: true,
+        default: nanoid()
     },
     nombre: {
         type: String,

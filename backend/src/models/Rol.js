@@ -1,9 +1,11 @@
 import { Schema, model } from "mongoose";
+import { nanoid } from "nanoid";
 
 const RolSchema = Schema({
     _id: {
         type: String,
-        required: true
+        required: true,
+        default: nanoid()
     },
     rol: {
         type: String,

@@ -1,6 +1,5 @@
 import Usuario from "../models/Usuario.js";
 import { httpErrors } from "../helpers/handleErrors.js";
-import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
 
 export const getAllUsuarios = async (req, res) => {
@@ -24,11 +23,9 @@ export const getOneUsuario = async (req, res) => {
 
 export const postNewUsuario = async (req, res) => {
     try {
-        const _id = nanoid();
         const {nombre, email, password, rol} = req.body;
         const newUsuario = await new Usuario(
             {
-                _id, 
                 nombre, 
                 email, 
                 password: Usuario.encryptPassword(password), 

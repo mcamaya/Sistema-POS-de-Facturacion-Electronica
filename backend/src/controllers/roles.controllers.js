@@ -1,6 +1,5 @@
 import Rol from "../models/Rol.js";
 import { httpErrors } from "../helpers/handleErrors.js";
-import { nanoid } from "nanoid";
 
 export const getAllRoles = async (req, res) => {
     try {
@@ -22,9 +21,8 @@ export const getOneRol = async (req, res) => {
 
 export const postNewRol = async(req, res) => {
     try {
-        const _id = nanoid();
         const {rol} = req.body;
-        const newRol = await new Rol({_id, rol});
+        const newRol = await new Rol({rol});
         newRol.save();
         res.json(newRol);
     } catch (err) {
