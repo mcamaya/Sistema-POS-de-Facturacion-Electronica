@@ -2,6 +2,7 @@ import express from "express";
 import { connectDatabase } from "../database/config.js";
 import allRoutes from "../routes/index.js";
 import cors from "cors";
+import { createEmpresa } from "../libs/initialSetUp.js";
 
 class Server {
     constructor(){
@@ -13,7 +14,8 @@ class Server {
         this.routes();
     }
 
-    middlewares(){
+    async middlewares(){
+        await createEmpresa();
         this.app.use(express.json());
         this.app.use(cors());
     }
