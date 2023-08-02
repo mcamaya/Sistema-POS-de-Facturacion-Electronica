@@ -5,17 +5,16 @@ import jwt from "jsonwebtoken";
 export const getAllUsuarios = async (req, res) => {
     try {
         const usuarios = await Usuario.find();
-        res.json(usuarios);
+        res.status(200).json(usuarios);
     } catch (err) {
-        res.status(400).send(err.message)
-
+        httpErrors(res, err);
     }
 }
 
 export const getOneUsuario = async (req, res) => {
     try {
         const oneUsuario = await Usuario.findOne({_id:req.params.id});
-        res.json(oneUsuario);
+        res.status(200).json(oneUsuario);
     } catch (err) {
         httpErrors(res, err);
     }
@@ -45,7 +44,7 @@ export const postNewUsuario = async (req, res) => {
 export const deleteUsuario = async (req, res) => {
     try {
         await Usuario.deleteOne({_id:req.params.id});
-        res.json({status: 'OK', msg:'Dato eliminado con éxito'});
+        res.json({msg:'Dato eliminado con éxito'});
     } catch (err) {
         httpErrors(res, err);
     }
@@ -58,7 +57,7 @@ export const updateUsuario = async (req, res) => {
             req.body,
             {new:true}
         );
-        res.json({status: 'OK', data: updatedUsuario});
+        res.json({updatedUsuario});
     } catch (err) {
         httpErrors(res, err);
     }

@@ -24,7 +24,7 @@ export const postNewProveedor = async (req, res) => {
         const {nombre, numeroDocumento, tipoDocumento, telefono, departamento, pais, tipoRegimen, naturaleza} = req.body;
         const newProveedor = await Proveedor({nombre, numeroDocumento, tipoDocumento, telefono, departamento, pais, tipoRegimen, naturaleza});
         await newProveedor.save();
-        res.json(200).json(newProveedor);
+        res.status(200).json(newProveedor);
     } catch (err) {
         httpErrors(res, err);
     }

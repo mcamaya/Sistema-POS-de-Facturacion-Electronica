@@ -13,7 +13,7 @@ const ProveedorSchema = new Schema({
     },
     numeroDocumento: {
         type: Number,
-        unique: true,
+        unique: true
     },
     tipoDocumento: {
         type: String,
@@ -28,6 +28,10 @@ const ProveedorSchema = new Schema({
     pais: String,
     tipoRegimen: String,
     naturaleza: String
+},
+{
+    versionKey: false,
+    timestamps: true
 });
 
 export default model('proveedores', ProveedorSchema);

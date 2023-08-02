@@ -32,8 +32,8 @@ export const postNewCliente = async (req, res) => {
 
 export const deleteCliente = async (req, res) => {
     try {
-       await Cliente.findByIdAndDelete({_id: req.params.id});
-       res.status(200).json({msg: 'Dato eliminado con éxito'});
+       const deletedCliente = await Cliente.findByIdAndDelete({_id: req.params.id});
+       res.status(200).json({msg: 'Dato eliminado con éxito', deletedCliente});
     } catch (err) {
         httpErrors(res, err)
     }
