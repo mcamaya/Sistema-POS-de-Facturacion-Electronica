@@ -48,3 +48,16 @@ export const deleteProducto = async (req, res) => {
         httpErrors(res, err);
     }
 }
+
+export const updateProducto = async (req, res) => {
+    try {
+        const updatedProducto = await Producto.findOneAndUpdate(
+            {_id:req.params.id},
+            req.body,
+            {new:true}
+        );
+        res.status(200).json(updatedProducto);
+    } catch (err) {
+        httpErrors(res, err);
+    }
+}

@@ -3,7 +3,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getInventario = async (req, res) => {
     try {
-        const inventarioDB = await Inventario.find({}).populate('producto', '-createdAt -updatedAt');
+        const inventarioDB = await Inventario.find({}).populate('producto', 'nombre precio');
         res.status(200).json(inventarioDB);
     } catch (err) {
         httpErrors(res, err);
