@@ -2,22 +2,27 @@ import express from "express";
 import { connectDatabase } from "../database/config.js";
 import allRoutes from "../routes/index.js";
 import cors from "cors";
-import { createEmpresa } from "../libs/initialSetUp.js";
+import { createEmpresa, createRoles } from "../libs/initialSetUp.js";
 
 class Server {
     constructor(){
         this.port = process.env.PORT;
         this.app = express();
         this.routesV1 = '/api/v1';
+        this.initialSetUp();
         this.middlewares();
         this.connectDatabase();
         this.routes();
     }
 
-    async middlewares(){
-        await createEmpresa();
+    middlewares(){
         this.app.use(express.json());
         this.app.use(cors());
+    }
+
+    async initialSetUp(){
+        await createEmpresa();
+        await createRoles();
     }
 
     async connectDatabase(){

@@ -5,7 +5,7 @@ const EmpresaSchema = new Schema({
     _id: {
         type: String,
         required: true,
-        default: nanoid()
+        default: () => nanoid()
     },
     nombre: {
         type: String,

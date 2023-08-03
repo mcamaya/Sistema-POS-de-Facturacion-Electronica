@@ -6,7 +6,7 @@ const UsuarioSchema = Schema({
     _id: {
         type: String,
         required: [true, 'Nanoid failed from model'],
-        default: nanoid()
+        default: () => nanoid()
     },
     nombre: {
         type: String,

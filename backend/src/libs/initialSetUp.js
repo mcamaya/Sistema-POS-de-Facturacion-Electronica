@@ -1,4 +1,5 @@
 import Empresa from "../models/Empresa.js";
+import Rol from "../models/Rol.js";
 
 export const createEmpresa = async () => {
     try {
@@ -20,6 +21,22 @@ export const createEmpresa = async () => {
         nuevaEmpresa.save();
         console.log(nuevaEmpresa);
         
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const createRoles = async () => {
+    try {
+        const count = await Rol.estimatedDocumentCount();
+        if(count > 0) return;
+        
+        const roles = await Promise.all([
+            new Rol({rol: 'USER'}).save(),
+            new Rol({rol: 'ADMIN'}).save()
+        ])
+
+        console.log(roles);
     } catch (error) {
         console.log(error);
     }

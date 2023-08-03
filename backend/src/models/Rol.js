@@ -5,7 +5,7 @@ const RolSchema = Schema({
     _id: {
         type: String,
         required: [true, 'Nanoid failed from model'],
-        default: nanoid()
+        default: () => nanoid()
     },
     rol: {
         type: String,
