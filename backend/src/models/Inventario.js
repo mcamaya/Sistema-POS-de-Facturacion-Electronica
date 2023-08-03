@@ -7,14 +7,15 @@ const InventarioSchema = new Schema({
         required: [true, 'Nanoid failed from model'],
         default: () => nanoid()
     },
-    nombreProducto: [{
+    producto: {
         type: String,
         required: true,
         ref: 'productos'
-    }],
+    },
     stockDisponible: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     stockMinimo: Number
 }, {

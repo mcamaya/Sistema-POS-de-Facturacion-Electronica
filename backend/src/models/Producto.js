@@ -21,19 +21,19 @@ const ProductoSchema = new Schema({
         unique: [true, 'Este código debe ser único e irrepetible'],
         trim: true
     },
-    categoria: [{
+    categoria: {
         type: String,
         required: true,
         ref: 'categorias'
-    }],
+    },
     activo: {
         type: Boolean,
         default: true
     },
-    proveedor: [{
+    proveedor: {
         type: String,
         ref: 'proveedores'
-    }],
+    },
     descripcion: String,
     iva: Number,
     impuestoAdicional: Number
