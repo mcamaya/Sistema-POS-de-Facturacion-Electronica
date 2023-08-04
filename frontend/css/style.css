@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --light-blue: #CCDCF2; 
+}
+body {
+    background-color: var(--light-blue);
+}
