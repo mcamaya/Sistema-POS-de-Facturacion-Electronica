@@ -1,21 +1,26 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import Empresa from "../models/Empresa.js";
 import * as empresaController from "../controllers/empresa.controllers.js";
 import validateDocuments from "../middlewares/validateDocuments.js";
+import verifyToken from "../middlewares/verifyToken.js";
+import isAdminRole from "../middlewares/isAdminRole.js";
+import { existeEmpresa } from "../helpers/db.validators.js";
 
 const router = Router();
 
-router.get('/', empresaController.getEmpresa);
+router.get('/', verifyToken, empresaController.getEmpresa);
+
 router.post('/', [
-    check('*').custom(async () => {
-        const existeData = await Empresa.find();
-        if (existeData) {
-            throw new Error('Solo es posible publicar información de una única empresa. Use el método patch para actualizar datos');
-        }
-    }),
+    verifyToken,
+    isAdminRole,
+    check('nombre').custom(existeEmpresa),
     validateDocuments
 ], empresaController.postDataEmpresa);
-router.patch('/', empresaController.updateDataEmpresa);
+
+router.patch('/', [
+    verifyToken,
+    isAdminRole,
+    validateDocuments
+], empresaController.updateDataEmpresa);
 
 export default router;

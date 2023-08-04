@@ -12,7 +12,7 @@ export const getInventario = async (req, res) => {
 
 export const getItemDeInventarioByID = async (req, res) => {
     try {
-        const itemInventario =await Inventario.findOne({_id:req.params.id}).populate('producto', '-createdAt -updatedAt');
+        const itemInventario =await Inventario.findOne({_id:req.params.id}).populate('producto', 'nombre precio');
         res.status(200).json(itemInventario);
     } catch (err) {
         httpErrors(res, err);

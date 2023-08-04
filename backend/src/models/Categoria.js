@@ -16,6 +16,8 @@ const CategoriaSchema = new Schema({
         type: String,
         trim: true
     }
+},{
+    versionKey: false
 });
 
 export default model('categorias', CategoriaSchema);

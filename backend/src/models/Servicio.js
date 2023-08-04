@@ -21,8 +21,14 @@ const ServicioSchema = new Schema({
         ref: 'categorias',
         required: [true, 'Indicar la categoría es obligatorio']
     },
+    activo: {
+        type: Boolean,
+        default: true
+    },
     descripcion: String,
     duracion: String
+}, {
+    versionKey: false
 });
 
 export default model('servicios', ServicioSchema);

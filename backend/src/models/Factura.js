@@ -11,12 +11,12 @@ const FacturaSchema = new Schema({
         type: Number,
         required: true
     },
-    clienteId: [{
+    clienteId: {
         type: String,
         required: true,
         ref: 'clientes',
         trim: true
-    }],
+    },
     productosIds: [{
         type: String,
         required: true,

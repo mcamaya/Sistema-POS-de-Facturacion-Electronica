@@ -38,16 +38,3 @@ export const deleteRoles = async (req, res) => {
         httpErrors(res, err);
     }
 }
-
-export const updateRol = async (req, res) => {
-    try {
-        const updatedRol = await Rol.findOneAndUpdate(
-            {_id:req.params.id},
-            req.body,
-            {new:true}
-        );
-        res.json({status: 'OK', data: updatedRol});
-    } catch (err) {
-        httpErrors(res, err);
-    }
-}

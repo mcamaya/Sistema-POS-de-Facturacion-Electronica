@@ -1,6 +1,5 @@
 import { response } from "express";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import generateJWT from "../helpers/createJWT.js";
 import Usuario from "../models/Usuario.js";
 import { httpErrors } from "../helpers/handleErrors.js";
 
@@ -13,7 +12,7 @@ const login = async (req, res = response) => {
         if(!usuario) return res.status(400).json(`El correo ${email} no está registrado`);
 
         //verificar si contraseña coincide
-        const coincidePwd = Usuario.comparePassword(password, usuario.password);
+        const coincidePwd = await Usuario.comparePassword(password, usuario.password);
         if(coincidePwd === false) return res.status(400).json(`La contraseña es incorrecta. Vuelva a intentarlo`);
 
         //verificar si se encuentra activo
@@ -21,9 +20,9 @@ const login = async (req, res = response) => {
             return res.status(400).json(`Este usuario ya no se encuentra activo`);
         }
 
-        const token = jwt.sign({id: usuario._id}, process.env.PRIVATE_KEY, {expiresIn: 3600});
+        const token = await generateJWT(usuario._id);
 
-        res.json({token});
+        res.json({usuario, token});
         
    } catch (err) {
         httpErrors(res, err)

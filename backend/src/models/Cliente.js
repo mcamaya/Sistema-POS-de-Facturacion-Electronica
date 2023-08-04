@@ -23,6 +23,10 @@ const ClienteSchema = new Schema({
         default: 'Cédula de Ciudadanía',
         ref: 'tipoDocumentos'
     },
+    activo: {
+        type: Boolean,
+        default: true
+    },
     celular: Number,
     email: String,
     direccion: String

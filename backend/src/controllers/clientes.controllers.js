@@ -32,8 +32,8 @@ export const postNewCliente = async (req, res) => {
 
 export const deleteCliente = async (req, res) => {
     try {
-       const deletedCliente = await Cliente.findByIdAndDelete({_id: req.params.id});
-       res.status(200).json({msg: 'Dato eliminado con éxito', deletedCliente});
+       const deletedCliente = await Cliente.findOneAndUpdate({_id: req.params.id}, {activo:false}, {new:true});
+       res.status(200).json({msg: 'Cliente marcado como inactivo', deletedCliente});
     } catch (err) {
         httpErrors(res, err)
     }

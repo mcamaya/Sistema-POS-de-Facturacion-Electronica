@@ -4,7 +4,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getAllProductos = async (req, res) => {
     try {
-        const productosdDB = await Producto.find();
+        const productosdDB = await Producto.find().populate('proveedor');
         res.status(200).json(productosdDB);
     } catch (err) {
         httpErrors(res, err);
@@ -13,7 +13,7 @@ export const getAllProductos = async (req, res) => {
 
 export const getProductByID = async (req, res) => {
     try {
-        const productoDB = await Producto.findOne({_id: req.params.id});
+        const productoDB = await Producto.findOne({_id: req.params.id}).populate('proveedor');
         res.status(200).json(productoDB);
     } catch (err) {
         httpErrors(res, err);

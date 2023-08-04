@@ -32,8 +32,8 @@ export const postNewServicio = async (req, res) => {
 
 export const deleteServicio = async(req, res) => {
     try {
-        const deletedServicio = await Servicio.deleteOne({_id:req.params.id});
-        res.status(200).json({msg: 'Dato eliminado con éxito', deletedServicio});
+        const deletedServicio = await Servicio.findOneAndUpdate({_id:req.params.id}, {activo: false}, {new:true});
+        res.status(200).json({msg: 'Servicio marcado como inactivo', deletedServicio});
     } catch (err) {
         httpErrors(res, err);
     }

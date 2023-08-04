@@ -32,8 +32,8 @@ export const postNewProveedor = async (req, res) => {
 
 export const deleteProveedorByID = async (req, res) => {
     try {
-        const deletedProveedor = await Proveedor.deleteOne({_id:req.params.id});
-        res.status(200).json({msg: 'Dato eliminado con éxito', deletedProveedor});
+        const deletedProveedor = await Proveedor.findOneAndUpdate({_id:req.params.id}, {activo: false}, {new:true});
+        res.status(200).json({msg: 'Proveedor marcado como inactivo', deletedProveedor});
     } catch (err) {
         httpErrors(res, err);
     }

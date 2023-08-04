@@ -21,8 +21,12 @@ const ProveedorSchema = new Schema({
         ref: 'tipoDocumentos'
     },
     telefono: {
-        type: String,
+        type: Number,
         required: [true, 'Telefono es requerido']
+    },
+    activo: {
+        type: Boolean,
+        default: true
     },
     departamento: String,
     pais: String,

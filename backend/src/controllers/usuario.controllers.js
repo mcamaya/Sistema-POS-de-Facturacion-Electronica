@@ -31,11 +31,8 @@ export const postNewUsuario = async (req, res) => {
                 rol
             }
         );
-
-        const token = jwt.sign({id: newUsuario._id}, process.env.PRIVATE_KEY, {expiresIn: 3600});
-
         const savedUser = await newUsuario.save();
-        res.status(200).json({status: 'OK', data: savedUser, token});
+        res.status(200).json({savedUser});
     } catch (err) {
         httpErrors(res, err);
     }
@@ -43,8 +40,8 @@ export const postNewUsuario = async (req, res) => {
 
 export const deleteUsuario = async (req, res) => {
     try {
-        await Usuario.deleteOne({_id:req.params.id});
-        res.json({msg:'Dato eliminado con éxito'});
+        const inactivo = await Usuario.findOneAndUpdate({_id:req.params.id}, {activo: false, rol: 'USER'}, {new:true});
+        res.json({msg:'Usuario marcado como inactivo', inactivo});
     } catch (err) {
         httpErrors(res, err);
     }
@@ -52,9 +49,14 @@ export const deleteUsuario = async (req, res) => {
 
 export const updateUsuario = async (req, res) => {
     try {
+        const {password, ...resto} = req.body;
+        if(password){
+            resto.password = await Usuario.encryptPassword(password)
+        }
+        
         const updatedUsuario = await Usuario.findOneAndUpdate(
             {_id:req.params.id},
-            req.body,
+            resto,
             {new:true}
         );
         res.json({updatedUsuario});

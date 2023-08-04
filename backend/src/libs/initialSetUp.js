@@ -1,5 +1,6 @@
 import Empresa from "../models/Empresa.js";
 import Rol from "../models/Rol.js";
+import Usuario from "../models/Usuario.js";
 
 export const createEmpresa = async () => {
     try {
@@ -37,6 +38,24 @@ export const createRoles = async () => {
         ])
 
         console.log(roles);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const createInitialAdmin = async () => {
+    try {
+        const count = await Usuario.estimatedDocumentCount();
+        if(count > 0) return;
+
+        const initialAdmin = new Usuario({
+            nombre: 'Initial Admin',
+            email: 'hello@example.com',
+            password: await Usuario.encryptPassword('123456'),
+            rol: 'ADMIN'
+        });
+        initialAdmin.save()
+        console.log(initialAdmin);
     } catch (error) {
         console.log(error);
     }

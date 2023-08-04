@@ -2,7 +2,7 @@ import express from "express";
 import { connectDatabase } from "../database/config.js";
 import allRoutes from "../routes/index.js";
 import cors from "cors";
-import { createEmpresa, createRoles } from "../libs/initialSetUp.js";
+import { createEmpresa, createRoles, createInitialAdmin } from "../libs/initialSetUp.js";
 
 class Server {
     constructor(){
@@ -21,8 +21,11 @@ class Server {
     }
 
     async initialSetUp(){
-        await createEmpresa();
-        await createRoles();
+        await Promise.all([
+            createEmpresa(),
+            createRoles(),
+            createInitialAdmin()
+        ])
     }
 
     async connectDatabase(){
