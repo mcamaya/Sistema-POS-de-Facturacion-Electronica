@@ -14,14 +14,17 @@ async function cargarInventario(){
         const inventario = await getAll();
         console.log(inventario);
         inventario.forEach(inv => {
-            let {producto, stockDisponible, stockMinimo} = inv;
+            let {_id, producto, stockDisponible, stockMinimo} = inv;
             mainTable.innerHTML += `
                 <tr>
-                    <td>${producto.nombre}</td>
-                    <td class="td-center">$${producto.precio.toLocaleString()}</td>
-                    <td class="td-center">${stockDisponible}</td>
-                    <td class="td-center">${stockMinimo}</td>
-                    <td class="td-center"></td>
+                    <td class="bording"><p class="body_text">${producto.nombre}</p></td>
+                    <td class="bording"><p class="body_text">$${producto.precio.toLocaleString()}</p></td>
+                    <td class="bording"><p class="body_text">${stockDisponible}</p></td>
+                    <td class="bording"><p class="body_text">${stockMinimo}</p></td>
+                    <td class="bording images">
+                        <a href="./actions/editar.html?id=${_id}"><button class="buttoms edit"><img class="img" src="../assets/lapiz.png" alt="edit"></button></a>
+                        <a href=""><button class="buttoms delete"><img class="img" src="../assets/eliminar.png" alt="delete"></button></a>
+                    </td>
                 </tr>
             `
         });

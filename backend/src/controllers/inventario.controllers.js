@@ -19,3 +19,15 @@ export const getItemDeInventarioByID = async (req, res) => {
     }
 }
 
+export const updateStockInventario = async (req, res) => {
+    try {
+        const updated = await Inventario.findOneAndUpdate(
+            {_id:req.params.id},
+            req.body,
+            {new:true}
+        );
+        res.status(200).json(updated);
+    } catch (err) {
+        httpErrors(res, err);
+    }
+}
