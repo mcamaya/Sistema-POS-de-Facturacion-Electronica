@@ -3,9 +3,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getFacturas = async (req, res) => {
     try {
-        const facturasDB = await Factura.find()
-            .populate('clienteId', 'nombre numeroDocumento celular')
-            .populate('productosIds', 'nombre precio codigoInterno');
+        const facturasDB = await Factura.find();
         res.status(200).json(facturasDB);
     } catch (err) {
         httpErrors(res, err);
@@ -14,9 +12,7 @@ export const getFacturas = async (req, res) => {
 
 export const getFacturaByID = async  (req, res) => {
     try {
-        const facturaDB = await Factura.findOne({_id:req.params.id})
-            .populate('clienteId', 'nombre numeroDocumento celular')
-            .populate('productosIds', 'nombre precio codigoInterno');
+        const facturaDB = await Factura.findOne({_id:req.params.id});
         res.status(200).json(facturaDB);
     } catch (err) {
         httpErrors(res, err)

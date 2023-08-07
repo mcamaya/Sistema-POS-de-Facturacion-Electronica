@@ -17,7 +17,6 @@ router.post('/', [
     check('nombre', 'Favor ingrese el nombre').not().isEmpty(),
     check('numeroDocumento', 'Favor ingrese el numero documento').not().isEmpty(),
     check('numeroDocumento').custom(existeDocumentoCliente),
-    check('email', 'Favor ingrese un email válido').isEmail(),
     check('celular', 'El celular debe contener máximo 10 números').isLength({max:10}),
     validateDocuments
 ], clientesController.postNewCliente);

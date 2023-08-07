@@ -34,7 +34,7 @@ export const getOneRegister = async (id) => {
 export const postNewData = async (registro, token) => {
     try {
         const response = await fetch(urlApi, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "x-auth-token": token

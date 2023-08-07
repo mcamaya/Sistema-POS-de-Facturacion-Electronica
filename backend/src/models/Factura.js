@@ -18,17 +18,13 @@ const FacturaSchema = new Schema({
         trim: true
     },
     productosIds: [{
-        type: String,
+        type: Object,
         required: true,
         ref: 'productos'
     }],
     fecha: {
         type: String,
-        required: true,
-        default: () => {
-            const date = new Date();
-            return date.getFullYear();
-        }
+        required: true
     },
     iva: {
         type: Number,
@@ -38,8 +34,7 @@ const FacturaSchema = new Schema({
     descuento: Number,
     impuestoAdicional: Number
 }, {
-    versionKey: false,
-    timestamps: true
+    versionKey: false
 });
 
 export default model('facturas', FacturaSchema);

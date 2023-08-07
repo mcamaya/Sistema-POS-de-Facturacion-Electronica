@@ -144,7 +144,7 @@ table {
 }
 
 th {
-    width: 12%;
+    width: 22%;
 }
 
 .bording {
@@ -161,11 +161,12 @@ th {
 }
 
 .body_text {
-    height: 50%;
+    height: 20%;
     width: 100%;
     margin: none;
     margin-bottom: 0px;
     text-align: center;
+
 }
 
 
@@ -175,7 +176,7 @@ th {
 
 .buttoms {
     background-color: #000;
-    width: 40%;
+    width: 45px;
     border-radius: 10px;
     border: none;
 }
@@ -186,7 +187,8 @@ th {
 }
 
 .images {
-    padding-left: 30px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .edit {
@@ -199,4 +201,66 @@ th {
     background-color: red;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0px;
+    justify-content: center;
+}
+
+.input-group input {
+    background: #F5F5F5;
+    box-shadow: 0px -1px 32px 0px rgba(0, 0, 0, 0.15) inset;
+    height: 2rem;
+    flex-shrink: 0;
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0px 5px;
+}
+
+
+.input-group input:disabled {
+    box-shadow: 0px -1px 32px 0px rgba(11, 0, 77, 0.4) inset;
+}
+
+.input-group label {
+    color: #000;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0.7rem;
+}
+.order{
+    display: flex;
+    width: 100%;
+    height: 93%;
+}
+.col{
+    width: 45%;
+    height: 100%;
+    margin: 0px 10px
+}
+
+.contain{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.contain button {
+    border: none;
+}
+.save{
+    margin-top: 20px;
+    background-color: var(--most-dark-blue);
+    color: white;
+    padding: 5px 30px;
+    border-radius: 10px;
 }

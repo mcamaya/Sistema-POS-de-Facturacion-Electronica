@@ -1,0 +1,21 @@
+{
+    "_id": "U1xx0VnfG4bViqsVMzSYX",
+    "numeroFactura": 3,
+    "clienteId": "In4pIiAz0w_ahrhCfJppZ",
+    "productosIds": [
+        {
+            "_id": "wVursJSf1aCPeJx_OnsoL",
+            "nombre": "Producto sdjnsadkfdsnh",
+            "precio": 50000,
+            "cantidad": 2
+        },
+        {
+            "_id": "rjRk5a4ZNfmVKSayMcod3",
+            "nombre": "y otro masss....",
+            "precio": 50000,
+            "cantidad": 3
+        }
+    ],
+    "fecha": "2023",
+    "iva": 19
+}

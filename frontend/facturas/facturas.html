@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
+    <title>Facturas</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -18,7 +18,7 @@
     <script type="module" src="./inventario.js" defer></script>
 </head>
 
-<body>
+<body> 
     <div class="navbar">
 
         <div class="nav-title">
@@ -46,12 +46,12 @@
             <div class="info">
                 <section class="sec_natvar">
                     <div>
-                        <h1 class="title">Inventario</h1>
+                        <h1 class="title">Facturas</h1>
                     </div>
                     <div>
-                        <button class="btn">
+                        <a href="./actions/añadir.html" class="btn">
                             <p class="button">+ Nuevo</p>
-                        </button>
+                        </a>
                         <button class="btn"><img src="../assets/menu.png" alt="hamburger" class="hamburger"></button>
                     </div>
                 </section>
@@ -73,7 +73,7 @@
                             <p></p>
                         </th>
                     </tr>
-                    <tbody id="main-table">
+                    <tbody id="main-table" data-bs-spy="scroll" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
                         
                     </tbody>
                 </table>

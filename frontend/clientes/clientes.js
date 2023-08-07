@@ -9,21 +9,25 @@ const token = document.cookie
 const mainTable = d.querySelector('#main-table');
 addEventListener('DOMContentLoaded', cargarTabla);
 
+function existeRegistro(dato){
+    if(dato){ return dato } else { return "" }
+}
+
 async function cargarTabla(){
     try {
         const clientes = await getAll();
         console.log(clientes);
         clientes.forEach(clt => {
-            let {nombre, numeroDocumento, celular, email} = clt;
+            let {_id, nombre, numeroDocumento, celular, email} = clt;
             mainTable.innerHTML += `
                 <tr>
-                    <td>${nombre}</td>
-                    <td class="td-center">${numeroDocumento}</td>
-                    <td class="td-center">${celular}</td>
-                    <td class="td-center">${email}</td>
-                    <td class="td-center d-flex justify-content-around">
-                        <a href="" class="btn btn-outline-primary"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="" class="btn btn-outline-danger"><i class="bi bi-x-circle-fill"></i></a>
+                    <td class="bording"><p class="body_text">${nombre}</p></td>
+                    <td class="bording"><p class="body_text">${numeroDocumento}</p></td>
+                    <td class="bording"><p class="body_text">${existeRegistro(celular)}</p></td>
+                    <td class="bording"><p class="body_text">${existeRegistro(email)}</p></td>
+                    <td class="bording images">
+                        <a href="./actions/editar.html?id=${_id}"><button class="buttoms edit"><img class="img" src="../assets/lapiz.png" alt="edit"></button></a>
+                        <a href=""><button class="buttoms delete"><img class="img" src="../assets/eliminar.png" alt="delete"></button></a>
                     </td>
                 </tr>
             `
@@ -32,4 +36,6 @@ async function cargarTabla(){
         console.log(err);
     }
 }
+
+
 
