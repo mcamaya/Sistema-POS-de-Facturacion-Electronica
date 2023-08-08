@@ -3,12 +3,13 @@ const urlApi = 'http://localhost:8000/api/v1/facturas';
 const urlSearchProductos = 'http://localhost:8000/api/v1/search/productos';
 const urlSearchClientes = 'http://localhost:8000/api/v1/search/clientes';
 
-export const getAll = async () => {
+export const getAll = async (token) => {
     try {
         const response = await fetch(urlApi, {
             method: 'GET',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "x-auth-token": token
             }
         });
         const data = await response.json();
@@ -18,12 +19,13 @@ export const getAll = async () => {
     }
 }
 
-export const getOneRegister = async (id) => {
+export const getOneRegister = async (id, token) => {
     try {
         const response = await fetch(`${urlApi}/${id}`, {
             method: 'GET',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "x-auth-token": token
             }
         });
         const data = await response.json();

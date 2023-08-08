@@ -1,4 +1,4 @@
-import { searchCliente, searchProducto, searchProveedor } from "../helpers/searchHelper.js";
+import { searchCliente, searchProducto, searchProveedor, searchFacturas } from "../helpers/searchHelper.js";
 import { httpErrors } from "../helpers/handleErrors.js";
 
 const notAllowedCollections = [
@@ -22,7 +22,9 @@ const searchCollections = (req, res) => {
             case 'proveedores':
                 searchProveedor(criterio,res);
                 break;
-
+            case 'facturas':
+                searchFacturas(criterio, res);
+                break;
             default:
                 res.status(400).json({msg: 'Esta colección no está disponible'})
         }

@@ -3,7 +3,7 @@ import { httpErrors } from "../helpers/handleErrors.js";
 
 export const getFacturas = async (req, res) => {
     try {
-        const facturasDB = await Factura.find();
+        const facturasDB = await Factura.find().populate('clienteId', 'nombre');
         res.status(200).json(facturasDB);
     } catch (err) {
         httpErrors(res, err);

@@ -31,7 +31,10 @@ const FacturaSchema = new Schema({
         required: true,
         default: 19
     },
-    descuento: Number,
+    descuento: {
+        type: Number,
+        default: 0
+    },
     impuestoAdicional: Number
 }, {
     versionKey: false
