@@ -1,80 +1,45 @@
 import { searchClientes, searchProductos, postNewData } from "../api.js";
-import obtenerFechaActual from "./obtenerFecha.js";
+import { matchedClientes, matchedProductos } from "./search.js";
+import obtenerFechaActual from "../../helpers/obtenerFecha.js";
+import token from "../../helpers/getTokenFromCookie.js";
 const d = document;
 
 let productosIds = [];
 
-const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth="))
-    ?.split("=")[1];
 
 addEventListener('DOMContentLoaded', () => {
     const inputFecha = d.querySelector('#fecha');
     inputFecha.value = obtenerFechaActual();
 })
 
+/* bootstrap modal methods */
 const modalClientes = d.querySelector('#clientesModal')
 const modalSearchCliente = new bootstrap.Modal(modalClientes);
 const modalProductos = d.querySelector('#productosModal')
 const modalSearchProducto = new bootstrap.Modal(modalProductos);
 
 const productTable = d.querySelector('#main-table');
-
-/* info modal clientes */
-let cltTableBody = d.querySelector('#clientesTableBody');
-let cltTableHead = d.querySelector('#clientesTableHead');
-let cltSearchBar = d.querySelector('#searchClientesInput');
-let cltSearchBtn = d.querySelector('#searchClientesBtn');
 const inputCliente = d.querySelector('#cliente');
 
+/* info modal clientes */
+export let cltTableBody = d.querySelector('#clientesTableBody');
+export let cltTableHead = d.querySelector('#clientesTableHead');
+export let cltSearchBar = d.querySelector('#searchClientesInput');
+let cltSearchBtn = d.querySelector('#searchClientesBtn');
+
 /* info modal productos */
-let prdTableBody = d.querySelector('#productosTableBody');
-let prdTableHead = d.querySelector('#productosTableHead');
-let prdSearchBar = d.querySelector('#searchProductosInput');
+export let prdTableBody = d.querySelector('#productosTableBody');
+export let prdTableHead = d.querySelector('#productosTableHead');
+export let prdSearchBar = d.querySelector('#searchProductosInput');
 let prdSearchBtn = d.querySelector('#searchProductosBtn');
 
 /* búsqueda clientes */
 cltSearchBtn.addEventListener('click', matchedClientes);
-
-async function matchedClientes(e){
-    try {
-        e.preventDefault();
-        cltTableBody.innerHTML = '';
-        cltTableHead.innerHTML = '';
-
-        let input = cltSearchBar.value;
-        let {result} = await searchClientes(input);
-        console.log(result);
-        if(result.length > 0){
-            cltTableHead.innerHTML+= `
-                <tr>
-                    <th class="col">Nombre</th>
-                    <th class="col-2">N° Documento</th>
-                    <th class="col-2">Celular</th>
-                </tr>
-            `;
-            result.forEach(clt => {
-                let {_id, nombre, numeroDocumento, celular} = clt;
-                cltTableBody.innerHTML+= `
-                <tr class="cliente-data" name="${nombre}" uid="${_id}">
-                    <td class="cliente-data">${nombre}</td>
-                    <td class="cliente-data">${numeroDocumento}</td>
-                    <td class="cliente-data">${celular}</td>
-                </tr>
-                `
-            });
-        } else {
-            cltTableBody.innerHTML+= '<h5 class="m-4">No coincidencias encontradas</h5>'
-        }
-
-    } catch (err) {
-        console.error(err);
-    }
-}
-
-
 cltTableBody.addEventListener('click', ingresarCliente);
+
+/* búsqueda productos */
+prdSearchBtn.addEventListener("click", matchedProductos);
+prdTableBody.addEventListener('click', añadirProductoATabla)
 
 function ingresarCliente(e) {
     try {
@@ -93,45 +58,7 @@ function ingresarCliente(e) {
     }
 }
 
-/* búsqueda productos */
-prdSearchBtn.addEventListener("click", matchedProductos);
 
-async function matchedProductos(e) {
-    try {
-        e.preventDefault();
-        prdTableBody.innerHTML = '';
-        prdTableHead.innerHTML = '';
-
-        let input = prdSearchBar.value;
-        let {result} = await searchProductos(input);
-        console.log(result);
-        if(result.length > 0){
-            prdTableHead.innerHTML+= `
-                <tr>
-                    <th class="col">Nombre</th>
-                    <th class="col-2">Precio</th>
-                    <th class="col-2">Código</th>
-                </tr>
-            `;
-            result.forEach(prd => {
-                let {_id, nombre, precio, codigoInterno} = prd
-                prdTableBody.innerHTML+= `
-                <tr class="producto-data" codigo="${codigoInterno}" name="${nombre}" price="${precio}" uid="${_id}">
-                    <td class="producto-data">${nombre}</td>
-                    <td class="producto-data">$${precio.toLocaleString()}</td>
-                    <td class="producto-data">${codigoInterno}</td>
-                </tr>
-                `
-            });
-        } else {
-            prdTableBody.innerHTML+= '<h5 class="m-4">No coincidencias encontradas</h5>'
-        }
-    } catch (err) {
-        console.error(err);
-    }
-}
-
-prdTableBody.addEventListener('click', añadirProductoATabla)
 function añadirProductoATabla(e) {
     try {
         e.preventDefault();

@@ -1,10 +1,6 @@
 import { getAll } from "./api.js";
+import token from "../helpers/getTokenFromCookie.js";
 const d = document;
-
-const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth="))
-    ?.split("=")[1];
 
 const mainTable = d.querySelector('#main-table');
 addEventListener('DOMContentLoaded', cargarTabla);

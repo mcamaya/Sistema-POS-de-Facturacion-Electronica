@@ -1,9 +1,5 @@
 import { getOneRegister, updateData } from "../api.js";
-
-const token = document.cookie
-  .split("; ")
-  .find((row) => row.startsWith("auth="))
-  ?.split("=")[1];
+import token from "../../helpers/getTokenFromCookie.js";
 
 function getParameterByName(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

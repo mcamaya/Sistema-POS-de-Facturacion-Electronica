@@ -1,11 +1,6 @@
 import { getAll, postNewData } from "./api.js";
 const d = document;
 
-const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth="))
-    ?.split("=")[1];
-
 const mainTable = d.querySelector('#main-table');
 addEventListener('DOMContentLoaded', cargarInventario);
 
@@ -23,7 +18,6 @@ async function cargarInventario(){
                     <td class="bording"><p class="body_text">${stockMinimo}</p></td>
                     <td class="bording images">
                         <a href="./actions/editar.html?id=${_id}"><button class="buttoms edit"><img class="img" src="../assets/lapiz.png" alt="edit"></button></a>
-                        <a href=""><button class="buttoms delete"><img class="img" src="../assets/eliminar.png" alt="delete"></button></a>
                     </td>
                 </tr>
             `

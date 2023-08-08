@@ -1,9 +1,5 @@
 import { postNewData } from "../api.js";
-
-const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth="))
-    ?.split("=")[1];
+import token from "../../helpers/getTokenFromCookie.js";
 
 const saveBtn = document.querySelector('#saveBtn');
 
@@ -32,7 +28,7 @@ async function ingresarDatos() {
         console.log(inputs, registro);
 
         await postNewData(registro, token);
-
+        document.location.reload();
     } catch (err) {
         console.log(err);
     }

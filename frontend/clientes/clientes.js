@@ -1,10 +1,6 @@
-import { getAll } from "./api.js";
+import { getAll, deleteData } from "./api.js";
+import token from "../../../frontend/helpers/getTokenFromCookie.js";
 const d = document;
-
-const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth="))
-    ?.split("=")[1];
 
 const mainTable = d.querySelector('#main-table');
 addEventListener('DOMContentLoaded', cargarTabla);
@@ -27,7 +23,7 @@ async function cargarTabla(){
                     <td class="bording"><p class="body_text">${existeRegistro(email)}</p></td>
                     <td class="bording images">
                         <a href="./actions/editar.html?id=${_id}"><button class="buttoms edit"><img class="img" src="../assets/lapiz.png" alt="edit"></button></a>
-                        <a href=""><button class="buttoms delete"><img class="img" src="../assets/eliminar.png" alt="delete"></button></a>
+                        <a><button uid="${_id}" class="buttoms delete delete-clt"><img uid="${_id}" class="img delete-clt" src="../assets/eliminar.png" alt="delete"></button></a>
                     </td>
                 </tr>
             `
@@ -38,4 +34,17 @@ async function cargarTabla(){
 }
 
 
-
+mainTable.addEventListener('click', clienteInactivo);
+async function clienteInactivo (e) {
+    try {
+        if(e.target.classList.contains('delete-clt')){
+            const uid = e.target.getAttribute('uid');
+            if(confirm('Desea marcar este registro como inactivo?')){
+                deleteData(uid, token);
+                document.location.reload();
+            }
+        }
+    } catch (err) {
+        console.error(err);   
+    }
+}

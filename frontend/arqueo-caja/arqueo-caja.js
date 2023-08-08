@@ -1,5 +1,5 @@
 import { searchRegistros } from "./api.js";
-import obtenerFechaActual from "./obtenerFecha.js";
+import obtenerFechaActual from "../helpers/obtenerFecha.js";
 const d = document;
 const searchBtn = d.querySelector('#searchBtn');
 const tableBody = d.querySelector('#main-table');
