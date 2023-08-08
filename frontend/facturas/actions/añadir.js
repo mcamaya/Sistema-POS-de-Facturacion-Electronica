@@ -34,11 +34,11 @@ export let prdSearchBar = d.querySelector('#searchProductosInput');
 let prdSearchBtn = d.querySelector('#searchProductosBtn');
 
 /* búsqueda clientes */
-cltSearchBtn.addEventListener('click', matchedClientes);
+cltSearchBar.addEventListener('input', matchedClientes);
 cltTableBody.addEventListener('click', ingresarCliente);
 
 /* búsqueda productos */
-prdSearchBtn.addEventListener("click", matchedProductos);
+prdSearchBar.addEventListener("input", matchedProductos);
 prdTableBody.addEventListener('click', añadirProductoATabla)
 
 function ingresarCliente(e) {
@@ -152,8 +152,8 @@ async function enviarRegistroFactura(){
             productosIds
         }
         console.log(data);
-        await postNewData(data, token);
-        document.location.reload();
+        let res = await postNewData(data, token);
+        res ? document.location.reload() : res;
     } catch (err) {
         console.error(err);
     }
